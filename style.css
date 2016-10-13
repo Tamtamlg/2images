@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+.field {
+  margin: 10px;
+  display: inline-block;
+  border: 2px solid gray;
+    
+}
+
+.row {
+  height: 75px;
+}
+
+.cell {
+  display: inline-block;
+  border: 2px solid gray;
+  width: 75px;
+  height: 75px;
+}

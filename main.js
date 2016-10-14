@@ -12,15 +12,14 @@ window.addEventListener('load', function loadFull() {
       type: "GET",
       url: "https://kde.link/test/get_field_size.php",
       dataType: "json",
-      success: function(data) {
+      success: function (data) {
         cleanField();
         createField(data.width, data.height);
         getImgArr(data.width, data.height);
         hoverCell();
       }
     });
-  };
-  
+  }
   
   function createField(width, height) { // создание игрового поля
     var rows = [];
@@ -32,10 +31,10 @@ window.addEventListener('load', function loadFull() {
       rows[i].classList.add('row');
       field.appendChild(rows[i]);
       for (j = 0; j < height; j++) {
-      cells[j] = document.createElement('div');
-      cells[j].classList.add('cell');
-      cells[j].index = i + ',' + j; // координаты ячейки
-      rows[i].appendChild(cells[j]);
+        cells[j] = document.createElement('div');
+        cells[j].classList.add('cell');
+        cells[j].index = i + ',' + j; // координаты ячейки
+        rows[i].appendChild(cells[j]);
       }
     }
   }
@@ -43,7 +42,7 @@ window.addEventListener('load', function loadFull() {
   function cleanField() { // очистка игрового поля
     var rows = document.querySelectorAll('.row');
     var i;
-    if (rows.length != 0) {
+    if (rows.length !== 0) {
       for (i = rows.length - 1; i >= 0; i--) {
         rows[i].remove();
       }
@@ -57,20 +56,26 @@ window.addEventListener('load', function loadFull() {
     var j;
     var l;
     for (i = 0; i < (width * height) / 2; i++) {
-      if(i < 10) {
+      if (i < 10) {
         images[i] = 'https://kde.link/test/' + i + '.png';
-      } 
-      if(i >= 10 && i < 20) {
+      }
+      if (i >= 10 && i < 20) {
         images[i] = 'https://kde.link/test/' + (i - 10) + '.png';
       }
-      if(i >= 20 && i < 30) {
+      if (i >= 20 && i < 30) {
         images[i] = 'https://kde.link/test/' + (i - 20) + '.png';
       }
-      if(i >= 30 && i < 40) {
+      if (i >= 30 && i < 40) {
         images[i] = 'https://kde.link/test/' + (i - 30) + '.png';
       }
     }
-    var images2 = images.concat(images, images); // дублируем картинки в массиве, чтобы гарантировано получить пары
+    
+    var images2 = images.concat(images); // дублируем картинки в массиве, чтобы гарантировано получить пары
+    
+    images2.sort(function() { // перемешиваем массив с картинками
+      return Math.random() - 0.5
+    });
+    
     for (j = 0; j < cells.length; j++) { // заполняем картинки
       cells[j].style.backgroundImage = 'url' +'(' + images2[j] + ')';
     }
@@ -84,14 +89,14 @@ window.addEventListener('load', function loadFull() {
     }
   }
   
-  function classActive(e) {
+  function classActive(e) { // добавляем класс к открытой картинке
     if (e.target.index && !e.target.classList.contains('active-always')) {
-        e.target.classList.remove('hover-cell');
-        e.target.classList.add('active');
-      }
+      e.target.classList.remove('hover-cell');
+      e.target.classList.add('active');
+    }
   }
   
-  function classActiveAlways(arr) {
+  function classActiveAlways(arr) { // добавляем класс, если картинки совпали  
     var i;
     for (i = 0; i < arr.length; i++) {
       arr[i].classList.remove('active');
@@ -99,7 +104,7 @@ window.addEventListener('load', function loadFull() {
     }
   }
   
-  function classHover(arr) {
+  function classHover(arr) { // если картинки не совпали
     var i;
     for (i = 0; i < arr.length; i++) {
       arr[i].classList.remove('active');
@@ -108,7 +113,6 @@ window.addEventListener('load', function loadFull() {
   }
   
   field.addEventListener('click', function openImages(e) { // открываем картинки
-    var counter = 0;
     var active = [];
     var i;
     var itemStile1;
@@ -116,12 +120,12 @@ window.addEventListener('load', function loadFull() {
     
     classActive(e);
     
-    active = document.querySelectorAll('.active');
-    if(active.length == 2) {
+    active = document.querySelectorAll('.active'); // массив с открытыми картинками
+    if (active.length == 2) {
       itemStile1 = active[0].getAttribute('style');
       itemStile2 = active[1].getAttribute('style');
 
-      if(itemStile1 == itemStile2) {
+      if (itemStile1 == itemStile2) { // проверяем, одинаковые ли картинки
         classActiveAlways(active);
       } else {
         classHover(active);

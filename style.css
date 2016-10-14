@@ -23,18 +23,22 @@ input[type=button] {
 }
 
 .row {
-  height: 75px;
+  height: 100px;
 }
 
 .cell {
   background-size: cover;
   display: inline-block;
   border: 2px solid gray;
-  width: 75px;
-  height: 75px;
+  width: 100px;
+  height: 100px;
 }
 
 .hover-cell {
   background-image: none !important;
   background: lightblue;
+}
+
+.active-always {
+  background: transparent;
 }

@@ -4,10 +4,10 @@ window.addEventListener('load', function loadFull() {
   var field = document.querySelector('.field');
   var start = document.querySelector('.start');
   
-  doRequest(); // создаем поле при загрузке страницы
-  $('.start').click(doRequest); // создаем новое поле при нажатии кнопки "new game"
+  doRequest();
+  $('.start').click(doRequest);
   
-  function doRequest() {
+  function doRequest() { //получаем данные и создаем игровое поле
     $.ajax({
       type: "GET",
       url: "https://kde.link/test/get_field_size.php",
@@ -70,13 +70,13 @@ window.addEventListener('load', function loadFull() {
         images[i] = 'https://kde.link/test/' + (i - 30) + '.png';
       }
     }
-    var images2 = images.concat(images, images); // дублируем картинки в массиве
+    var images2 = images.concat(images, images); // дублируем картинки в массиве, чтобы гарантировано получить пары
     for (j = 0; j < cells.length; j++) { // заполняем картинки
       cells[j].style.backgroundImage = 'url' +'(' + images2[j] + ')';
     }
   }
   
-  function hoverCell() {
+  function hoverCell() { // скрываем картинки
     var i;
     var cells = document.querySelectorAll('.cell');
     for (i = 0; i < cells.length; i++) {
@@ -84,9 +84,48 @@ window.addEventListener('load', function loadFull() {
     }
   }
   
-  field.addEventListener('click', function getElem(e) {
-    if ( e.target.index ) {
-      e.target.classList.remove('hover-cell');
+  function classActive(e) {
+    if (e.target.index && !e.target.classList.contains('active-always')) {
+        e.target.classList.remove('hover-cell');
+        e.target.classList.add('active');
+      }
+  }
+  
+  function classActiveAlways(arr) {
+    var i;
+    for (i = 0; i < arr.length; i++) {
+      arr[i].classList.remove('active');
+      arr[i].classList.add('active-always');
+    }
+  }
+  
+  function classHover(arr) {
+    var i;
+    for (i = 0; i < arr.length; i++) {
+      arr[i].classList.remove('active');
+      arr[i].classList.add('hover-cell');
+    }
+  }
+  
+  field.addEventListener('click', function openImages(e) { // открываем картинки
+    var counter = 0;
+    var active = [];
+    var i;
+    var itemStile1;
+    var itemStile2;
+    
+    classActive(e);
+    
+    active = document.querySelectorAll('.active');
+    if(active.length == 2) {
+      itemStile1 = active[0].getAttribute('style');
+      itemStile2 = active[1].getAttribute('style');
+
+      if(itemStile1 == itemStile2) {
+        classActiveAlways(active);
+      } else {
+        classHover(active);
+      }
     }
   });
   

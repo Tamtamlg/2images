@@ -1,12 +1,25 @@
 * {
   box-sizing: border-box;
 }
+body {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+input[type=button] {
+  padding: 10px 20px;
+  background-color: coral;
+  color: beige;
+  outline: none;
+  text-transform: uppercase;
+}
 
 .field {
-  margin: 10px;
+  margin-top: 20px;
   display: inline-block;
   border: 2px solid gray;
-    
+  
 }
 
 .row {
@@ -14,8 +27,14 @@
 }
 
 .cell {
+  background-size: cover;
   display: inline-block;
   border: 2px solid gray;
   width: 75px;
   height: 75px;
+}
+
+.hover-cell {
+  background-image: none !important;
+  background: lightblue;
 }

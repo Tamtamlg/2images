@@ -2,9 +2,13 @@
   box-sizing: border-box;
 }
 body {
-  padding: 10px;
   text-align: center;
   font-size: 18px;
+}
+
+h1 {
+  text-transform: uppercase;
+  color: gray;
 }
 
 input[type=button] {
@@ -19,26 +23,21 @@ input[type=button] {
   margin-top: 20px;
   display: inline-block;
   border: 2px solid gray;
-  
 }
 
 .row {
-  height: 100px;
+  height: 75px;
 }
 
 .cell {
   background-size: cover;
   display: inline-block;
   border: 2px solid gray;
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
 }
 
 .hover-cell {
   background-image: none !important;
   background: lightblue;
-}
-
-.active-always {
-  background: transparent;
 }
